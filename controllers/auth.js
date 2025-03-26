@@ -25,7 +25,7 @@ const loginCtrl = async (req, res) => {
             handleHttpError(res, "USER_NOT_EXISTS", 404)
             return
         }
-        const hashPassword = user.password;
+        const hashPassword = await encrypt(user.password);
         const check = await compare(req.password, hashPassword)
         if (!check) {
             handleHttpError(res, "INVALID_PASSWORD", 401)
